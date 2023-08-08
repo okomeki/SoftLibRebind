@@ -1,1 +1,1 @@
-net.siisise.bind.format.JavaFormat
+# net.siisise.bind.format.JavaFormat # Number などが変換できなくなるので使えない

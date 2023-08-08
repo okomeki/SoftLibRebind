@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
 import net.siisise.bind.format.ContentBind;
 import net.siisise.bind.format.JavaTypeFormat;
 import net.siisise.bind.format.TypeBind;
+import net.siisise.bind.unbind.JavaUnbind;
 import net.siisise.bind.unbind.java.UnbindObject;
-import net.siisise.bind.unbind.java.UnbindNull;
 
 /**
  * JSON Binding から他の型も使えそうな汎用版にする予定は未定.
@@ -54,14 +54,14 @@ public class Rebind {
                 putUnbind(src, un);
             }
         }
-        List<TypeUnbind> nulls = new ArrayList<>();
-        nulls.add( new UnbindNull());
-        unbindMap.put(null, nulls);
 
         for ( TypeFormat form : bindList ) {
             if ( form instanceof TypeBind ) {
                 Type target = ((TypeBind)form).targetClass();
                 if ( target != null ) {
+//                    if (formats.get(target) != null) {
+//                        System.err.println("Unbind 重複している?" + target.getTypeName() + ":" + form.getClass().getName());
+//                    }
                     formats.put(target, form);
                 }
             }
@@ -81,10 +81,19 @@ public class Rebind {
     static List<TypeUnbind> loadUnbindLists() {
         ServiceLoader<UnbindList> unbindLoader = ServiceLoader.load(UnbindList.class);
         List<TypeUnbind> ubs = new ArrayList<>();
+        UnbindList javaUnbind = null;
+        
         for ( UnbindList unbindList : unbindLoader ) {
-//            System.out.println("Load UnbindList : " + unbindList.getClass().getName());
-            ubs.addAll(Arrays.asList(unbindList.getList()));
+            if ( unbindList.getClass() == JavaUnbind.class ) {
+                javaUnbind = unbindList;
+            } else {
+//                System.out.println("Load UnbindList : " + unbindList.getClass().getName());
+                ubs.addAll(Arrays.asList(unbindList.getList()));
+            }
         }
+        // Javaは最後
+        ubs.addAll(Arrays.asList(javaUnbind.getList()));
+        
         return ubs;
     }
 /*

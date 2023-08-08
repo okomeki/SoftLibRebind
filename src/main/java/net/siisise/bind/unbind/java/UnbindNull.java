@@ -26,7 +26,7 @@ public class UnbindNull implements TypeUnbind {
     
     @Override
     public Type[] getSrcTypes() {
-        return new Type[] { };
+        return new Type[] { null };
     }
 
     @Override

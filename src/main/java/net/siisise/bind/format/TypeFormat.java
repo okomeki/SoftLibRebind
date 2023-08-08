@@ -16,6 +16,7 @@
 package net.siisise.bind.format;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +32,14 @@ import net.siisise.io.BASE64;
  */
 public interface TypeFormat<T> extends BindNull<T>, BindBoolean<T>, BindNumber<T>, BindString<T>, BindArray<T>, BindCollection<T> {
 
+    /**
+     * 対象型で小分けにできるかも
+     * @param t
+     * @return 
+     */
+    default TypeFormat<T> target(Type t) {
+        return this;
+    }
     /**
      * 配列をbyte[] ,char[], list/set系に振り分ける
      * @param array

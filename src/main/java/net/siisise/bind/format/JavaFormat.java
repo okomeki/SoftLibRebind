@@ -23,6 +23,7 @@ import java.util.Map;
 /**
  * なにもしないさんぷる.
  * Map/List系出力をするJavaFormat
+ * Object に割り当てるのは危ないかも.
  * Class/Object系で対象の型を特定する場合はJavaTypeFormat
  */
 public class JavaFormat implements TypeBind<Object> {
@@ -47,6 +48,11 @@ public class JavaFormat implements TypeBind<Object> {
         return bool;
     }
 
+    /**
+     * Number同士の型変換ができないよ.
+     * @param num
+     * @return 
+     */
     @Override
     public Object numberFormat(Number num) {
         return num;

@@ -22,6 +22,9 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.siisise.bind.Rebind;
 import net.siisise.bind.TypeUnbind;
 import net.siisise.bind.format.TypeFormat;
 import net.siisise.bind.format.BindObject;
@@ -31,6 +34,11 @@ import net.siisise.bind.format.BindObject;
  * Mapに変換する場合
  */
 public class UnbindObject implements TypeUnbind {
+    
+    /**
+     * 直接 format が渡せるメソッド名 (固定にする予定?)
+     */
+    static final String REBIND = "rebind";
     
     public static enum MapType {
         FIELD,
@@ -58,13 +66,40 @@ public class UnbindObject implements TypeUnbind {
         return def;
     }
 
+    /**
+     * どの型でもない Object をいろいろ料理する.
+     * 
+     * ToDo: toJSON など特殊なAPIを持つ場合はどうしようかな
+     * @param src nullではない想定
+     * @param format
+     * @return 
+     */
     @Override
     public Object valueOf(Object src, TypeFormat format) {
+        // 特殊APIを探す
+        Object obj = toBind(src, format);
+        if ( obj != def ) {
+            return obj;
+        }
+
         if ( format instanceof BindObject ) {
             return ((BindObject)format).objectFormat(src);
         }
         Map<String, Object> objmap = objectToMap(src);
         return format.mapFormat(objmap);
+    }
+    
+    static Object toBind(Object obj, TypeFormat format) {
+        Class cls = obj.getClass();
+        try {
+            Method method = cls.getMethod(REBIND, TypeFormat.class);
+            return method.invoke(obj, format);
+        } catch (NoSuchMethodException ex) {
+            // ないので実行しない
+        } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            Logger.getLogger(UnbindObject.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return def;
     }
     
     Map<String, Object> objectToMap(Object src) {

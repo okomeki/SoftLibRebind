@@ -23,10 +23,18 @@ import java.lang.reflect.Type;
  */
 public interface TypeUnbind {
     
+    /**
+     * 解析対象 Class
+     * 重複可能、順番は保証しない.
+     * 含まなくても解析は可能.
+     * 
+     * @return unbind target Class
+     */
     Type[] getSrcTypes();
     
     /**
      * 分解する機能.
+     * ありとあらゆるObjectを返したいので該当しない場合は null や unknown ではなく自身を指す。
      * @param <T>
      * @param src
      * @param format
