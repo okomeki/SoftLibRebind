@@ -329,6 +329,16 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
         throw new UnsupportedOperationException("未サポートな型:" + type.getTypeName());
     }
 
+    @Override
+    public Object arrayFormat(Object array) {
+        if ( type instanceof Class ) {
+            if ( array.getClass() == type ) {
+                return array;
+            }
+        }
+        throw new UnsupportedOperationException("Not supported yet." + array.getClass().getName() + " target:" + type.getTypeName());
+    }
+
     /**
      * なんとなく変換する.
      * @param <I>
@@ -497,11 +507,6 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
             }
             
         }
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
-    public Object arrayFormat(Object array) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
