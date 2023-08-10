@@ -28,6 +28,7 @@ import net.siisise.io.BASE64;
 /**
  * よくある基本型をまとめたもの.
  * 他の型が必要な場合は別途つけてもよい.
+ * テキスト/ファイル出力は ***Format, Object 出力は ***Convert の名にする予定は未定。
  * @param <T> 出力型
  */
 public interface TypeFormat<T> extends BindNull<T>, BindBoolean<T>, BindNumber<T>, BindString<T>, BindArray<T>, BindCollection<T> {

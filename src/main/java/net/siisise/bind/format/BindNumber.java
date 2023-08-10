@@ -20,5 +20,13 @@ package net.siisise.bind.format;
  * @param <T> 出力型
  */
 public interface BindNumber<T> {
+    /**
+     * 整数型 Byte Short Integer BigInteger
+     * 浮動小数点型 Float Double BigDecimal
+     * を想定したもの.
+     * 他の型もあるかもしれないけど事前変換がおすすめ.
+     * @param num 数値型の値
+     * @return 出力
+     */
     T numberFormat(Number num);
 }

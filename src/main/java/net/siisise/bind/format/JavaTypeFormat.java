@@ -117,6 +117,11 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
             if ( number instanceof BigInteger ) {
                 return new BigDecimal((BigInteger)number);
             }
+            if ( number instanceof Long || number instanceof Integer || number instanceof Short || number instanceof Byte ) {
+                return BigDecimal.valueOf(number.longValue());
+            } else if ( number instanceof Double || number instanceof Float ) {
+                return BigDecimal.valueOf(number.doubleValue());
+            }
             return new BigDecimal(number.toString());
         } else if ( cls == String.class || cls == CharSequence.class ) {
             return number.toString();
