@@ -23,7 +23,7 @@ import java.util.Map;
  * なにもしないさんぷる.
  * Map/List系出力をするJavaFormat
  * Object に割り当てるのは危ないかも.
- * Class/Object系で対象の型を特定する場合はJavaTypeFormat
+ * Class/Object系で対象の型を特定する場合はJavaTypeConvert
  */
 public class JavaFormat implements TypeFormat<Object> {
 

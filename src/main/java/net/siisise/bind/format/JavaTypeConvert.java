@@ -45,13 +45,13 @@ import net.siisise.io.BASE64;
 /**
  * プリミティブ形など変換機能つよめのTypeFormat
  * OMAPConvert だったもの
- * @param <T>
+ * @param <T> 出力型
  */
-public class JavaTypeFormat<T> implements TypeBind<T> {
+public class JavaTypeConvert<T> implements TypeBind<T> {
 
     private final Type type;
     
-    public JavaTypeFormat(Type type) {
+    public JavaTypeConvert(Type type) {
         this.type = type;
     }
     
@@ -207,6 +207,7 @@ public class JavaTypeFormat<T> implements TypeBind<T> {
         }
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
     /**
      * Mapを指定の型に収まるよう加工する
      * @param type
@@ -264,11 +265,11 @@ public class JavaTypeFormat<T> implements TypeBind<T> {
             }
             return obj;
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(JavaTypeFormat.class.getName()).log(Level.SEVERE, null, ex);
             throw new java.lang.UnsupportedOperationException(ex);
         }
     }
 
+    //JSONObjectもある
     static Class[] MAPS = {HashMap.class, LinkedHashMap.class, EnumMap.class, Hashtable.class, TreeMap.class};
 
     /**
@@ -291,8 +292,7 @@ public class JavaTypeFormat<T> implements TypeBind<T> {
                     return (Map) cls.getConstructor().newInstance();
                 } catch (NoSuchMethodException | SecurityException | InstantiationException
                         | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                    Logger.getLogger(JavaTypeFormat.class.getName()).log(Level.SEVERE, null, ex);
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                    throw new UnsupportedOperationException("Not supported yet.");
                 }
             }
         }
@@ -301,7 +301,7 @@ public class JavaTypeFormat<T> implements TypeBind<T> {
             return (Map) tcls.getConstructor().newInstance();
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(JavaTypeFormat.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JavaTypeConvert.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -467,13 +467,14 @@ public class JavaTypeFormat<T> implements TypeBind<T> {
                 return (T) c.newInstance(params);
             } catch (UnsupportedOperationException | InstantiationException
                     | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(JavaTypeFormat.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JavaTypeConvert.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
         throw new UnsupportedOperationException();
     }
 
+    // JSONArrayもあり
     static Class<? extends Collection>[] COLL = new Class[]{ArrayList.class, HashSet.class, LinkedList.class};
 
     static Collection typeToList(Class cls) {
@@ -483,7 +484,7 @@ public class JavaTypeFormat<T> implements TypeBind<T> {
                     return colCls.getConstructor().newInstance();
                 } catch (NoSuchMethodException | SecurityException | InstantiationException
                         | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                    Logger.getLogger(JavaTypeFormat.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(JavaTypeConvert.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -492,7 +493,7 @@ public class JavaTypeFormat<T> implements TypeBind<T> {
             return (Collection) cls.getConstructor().newInstance();
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
                 | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(JavaTypeFormat.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JavaTypeConvert.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
 //        throw new UnsupportedOperationException("未サポートな型:" + cls.getTypeName());

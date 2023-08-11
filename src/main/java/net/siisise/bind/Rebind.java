@@ -14,7 +14,7 @@ import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.stream.Collectors;
 import net.siisise.bind.format.ContentBind;
-import net.siisise.bind.format.JavaTypeFormat;
+import net.siisise.bind.format.JavaTypeConvert;
 import net.siisise.bind.format.TypeBind;
 import net.siisise.bind.unbind.JavaUnbind;
 import net.siisise.bind.unbind.java.UnbindObject;
@@ -224,9 +224,7 @@ public class Rebind {
             Type rawClass = toClass(target);
             
             if ( rawClass instanceof Class ) {
-                //Optional<Map.Entry<Type, TypeFormat>> op =
                 List<Map.Entry<Type, TypeFormat>> list = formats.entrySet().parallelStream()
-//                        .filter(e -> ((e.getKey() instanceof Class) && (e.getKey() != Object.class)))
                         .filter(e -> ((e.getKey() instanceof Class) ))
                         .filter(e -> ((Class)e.getKey()).isAssignableFrom((Class)rawClass)).collect(Collectors.toList());
                 if ( !list.isEmpty() ) {
@@ -243,34 +241,11 @@ public class Rebind {
                         }
                     }
                     format = list.get(0).getValue();
-//                    System.out.println(" Type: " + target.getTypeName());
-//                    System.out.println(" format: " + format.getClass().getName());
                     formats.put(target, format);
                     return format;
-//                } else {
-//                    System.out.println("Target match : empty");
                 }
-                /*
-                if ( op.isPresent() ) {
-                    return op.get().getValue();
-                }
-*/
-                /*
-                for ( Map.Entry<Type, TypeFormat> e : formats.entrySet() ) {
-                    Type key = e.getKey();
-                    if ( key instanceof Class && key != Object.class ) {
-                        Class<?> cnvClass = (Class<?>)key;
-                        Class<?> typeClass = (Class<?>)rawClass;
-                        if ( cnvClass.isAssignableFrom(typeClass)) {
-                            return e.getValue();
-                        }
-                    }
-                }
-*/
-//            } else {
-//                throw new UnsupportedOperationException("yet.");
             }
-            format = new JavaTypeFormat(target);
+            format = new JavaTypeConvert(target);
         }
 //        System.out.println("Target match : " + format.getClass().getName());
         return format;
