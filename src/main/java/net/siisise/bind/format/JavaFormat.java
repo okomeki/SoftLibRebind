@@ -15,7 +15,6 @@
  */
 package net.siisise.bind.format;
 
-import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Map;
@@ -26,13 +25,8 @@ import java.util.Map;
  * Object に割り当てるのは危ないかも.
  * Class/Object系で対象の型を特定する場合はJavaTypeFormat
  */
-public class JavaFormat implements TypeBind<Object> {
+public class JavaFormat implements TypeFormat<Object> {
 
-    @Override
-    public Type targetClass() {
-        return Object.class;
-    }
-    
     @Override
     public Object mapFormat(Map map) {
         return map;

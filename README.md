@@ -1,9 +1,9 @@
 # SoftLibRebind
 Java, JSON, CBOR, YAML, etc bind tool
 
-概要
+## 概要
 
-JavaとJSONとその他いろいろの形式を変換するための枠組みです Jakarta JSON-B などでは各形式に対応する
+JavaとJSONとその他いろいろの形式を変換するための枠組みです Jakarta JSON Binding などでは各形式に対応する
 ファイル形式とオブジェクト形式の2つあると思うので、それぞれ個別のフォーマットとして扱えます。
 改行が違うとか派生形式も可能かもしれません。
 
@@ -24,7 +24,7 @@ Javaの該当型への変換は classを指定するだけで簡単です。
 内部形式、出力形式をJavaのサービスプロバイダ (META-INF/services) を使って拡張可能です。
 YAML, CBORなどが可能です。ASN.1なども扱えるかもしれません。
 
-経緯
+## 経緯
 
 何かできてしまったのでSoftLibJSONから独立させた
 
@@ -45,18 +45,33 @@ JSONのオブジェクトと書式も分離したい。
 
 あとはParserも組み込めれば各形式の3形態を分離できるかも。
 
-構成
+## 構成
 
  SoftLibRebind Java List/Map/Object が扱える
-   SoftLibJSON   JDK  8    用 JSON,  Java EE    JSON-P JSON-B 互換, 独自実装、JSON共通部分含む
-   SoftLibJSON11 JDK 11以降用 JSON,  Jakarta EE JSON-P JSON-B 互換
-   SoftLibYAML  YAML, CBOR など 仮分類出力用
+   SoftLibJSON        JDK  8   用 JSON,  Java EE    JSON-P JSON-B 互換, 独自実装、JSON共通部分含む
+   SoftLibJakartaJSON JDK 11以降用 JSON,  Jakarta EE JSON Processing, Jakarta EE JSON Binding 互換
+   SoftLibYAML        YAML, CBOR など 仮分類出力用
 
-予定
+## Maven
 
-   SQL拡張、ASN1対応など?
+pom.xml のdependency は次のような感じで追加します。
+SoftLibJSONなどから依存関係になっているので使いたい機能を個別に含めればSoftLibRebindも含まれます。
+```
+<dependency>
+  <groupId>net.siisise<groupId>
+  <artifactId>softlib-rebind</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <type>jar</type>
+</dependency>
+```
+まだSNAPSHOTです。
 
-LICENSE
+## 予定
+
+   IO系、SQL拡張、ASN1対応など?
+
+## LICENSE
+
  Apache 2.0
  okomeki または しいしせねっと
 

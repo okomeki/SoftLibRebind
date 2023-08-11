@@ -15,7 +15,10 @@
  */
 package net.siisise.bind.format;
 
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * 出力の判定方法2つくらい
@@ -24,9 +27,24 @@ import java.lang.reflect.Type;
 public interface TypeBind<T> extends TypeFormat<T> {
 
     /**
-     * 型から自動選択する場合に使う.
-     * @return 型
+     * T で型指定して継承する場合に省略可能にしておく.
+     * @return 対象型
      */
-    Type targetClass();
+    default Type targetClass() {
+        return target(this);
+    }
 
+    public static Type target(TypeFormat bind) {
+        Type[] ifs = bind.getClass().getGenericInterfaces();
+        Optional<Type> an = Arrays.asList(ifs).stream().filter(v -> v instanceof ParameterizedType)
+                .filter(t -> ((ParameterizedType)t).getRawType() == TypeBind.class)
+                .findFirst();
+
+        if ( an.isPresent() ) {
+            ParameterizedType type = (ParameterizedType) an.get();
+            return type.getActualTypeArguments()[0];
+        }
+        return null;
+    }
+    
 }

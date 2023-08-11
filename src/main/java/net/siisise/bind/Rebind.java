@@ -55,25 +55,24 @@ public class Rebind {
             }
         }
 
+        // ContentBind のついているものはContentTypeで、ついていないものはTypeで振り分ける?
         for ( TypeFormat form : bindList ) {
-            if ( form instanceof TypeBind ) {
-                Type target = ((TypeBind)form).targetClass();
-                if ( target != null ) {
-//                    if (formats.get(target) != null) {
-//                        System.err.println("Unbind 重複している?" + target.getTypeName() + ":" + form.getClass().getName());
-//                    }
-                    formats.put(target, form);
-                }
-            }
             if ( form instanceof ContentBind ) {
                 String contentType = ((ContentBind)form).contentType();
                 if ( contentType != null ) {
                     mimes.put(contentType, form);
                 }
+            } else { // TypeBind<>
+                if ( form instanceof TypeBind ) {
+                    Type target = ((TypeBind)form).targetClass();
+                    if ( target != null ) {
+                        formats.put(target, form);
+                    }
+                }
             }
         }
     }
-
+    
     /**
      * とりあえずList でまとめて取得してみる.
      * @return 

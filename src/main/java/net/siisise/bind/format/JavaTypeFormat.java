@@ -45,44 +45,43 @@ import net.siisise.io.BASE64;
 /**
  * プリミティブ形など変換機能つよめのTypeFormat
  * OMAPConvert だったもの
+ * @param <T>
  */
-public class JavaTypeFormat implements TypeFormat, TypeBind {
+public class JavaTypeFormat<T> implements TypeBind<T> {
 
     private final Type type;
     
     public JavaTypeFormat(Type type) {
         this.type = type;
     }
-
+    
     @Override
     public Type targetClass() {
         return type;
     }
 
     @Override
-    public Object nullFormat() {
+    public T nullFormat() {
         return null;
     }
 
     @Override
-    public Object booleanFormat(boolean bool) {
+    public T booleanFormat(boolean bool) {
         if ( type instanceof Class ) {
             Class cls = (Class)type;
             if ( cls.isAssignableFrom(Boolean.class) || cls == Boolean.TYPE ) {
-                return (Boolean)bool;
+                return (T)(Boolean)bool;
             } else if ( cls == String.class || cls == CharSequence.class ) {
-                return Boolean.toString(bool);
-//            } else if ( cls.isAssignableFrom(JSONBoolean.class) ) {
-//                return (bool ? JSONBoolean.TRUE : JSONBoolean.FALSE);
+                return (T)Boolean.toString(bool);
             } else if ( Number.class.isAssignableFrom(cls)) { // Number系
-                return numberFormat(bool ? 1 : 0);
+                return (T)numberFormat(bool ? 1 : 0);
             }
         }
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Object numberFormat(Number number) {
+    public T numberFormat(Number number) {
         if ( !(type instanceof Class) ) {
             throw new UnsupportedOperationException("まだ");
         }
@@ -92,39 +91,39 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
 //            return number;
 //        }
         if ( cls.isAssignableFrom(number.getClass())) {
-            return number;
+            return (T)number;
         }
         // 整数型
         if (cls == Integer.TYPE || cls == Integer.class) {
-            return number.intValue();
+            return (T)(Integer)number.intValue();
         } else if (cls == Long.TYPE || cls == Long.class) {
-            return number.longValue();
+            return (T)(Long)number.longValue();
         } else if (cls == Short.TYPE || cls == Short.class) {
-            return number.shortValue();
+            return (T)(Short)number.shortValue();
         } else if (cls == Character.TYPE || cls == Character.class) {
-            return (char)number.intValue();
+            return (T)(Character)(char)number.intValue();
         } else if (cls == Byte.TYPE || cls == Byte.class) {
-            return number.byteValue();
+            return (T)(Byte)number.byteValue();
         // 浮動小数点型
         } else if (cls == Float.TYPE || cls == Float.class) {
-            return number.floatValue();
+            return (T)(Float)number.floatValue();
         } else if (cls == Double.TYPE || cls == Double.class) {
-            return number.doubleValue();
+            return (T)(Double)number.doubleValue();
         // 大きい型
         } else if (cls == BigInteger.class) {
-            return new BigInteger(number.toString());
+            return (T)new BigInteger(number.toString());
         } else if (cls == BigDecimal.class) {
             if ( number instanceof BigInteger ) {
-                return new BigDecimal((BigInteger)number);
+                return (T)new BigDecimal((BigInteger)number);
             }
             if ( number instanceof Long || number instanceof Integer || number instanceof Short || number instanceof Byte ) {
-                return BigDecimal.valueOf(number.longValue());
+                return (T)BigDecimal.valueOf(number.longValue());
             } else if ( number instanceof Double || number instanceof Float ) {
-                return BigDecimal.valueOf(number.doubleValue());
+                return (T)BigDecimal.valueOf(number.doubleValue());
             }
-            return new BigDecimal(number.toString());
+            return (T)new BigDecimal(number.toString());
         } else if ( cls == String.class || cls == CharSequence.class ) {
-            return number.toString();
+            return (T)number.toString();
         }
 //        if ( cls.isAssignableFrom(Boolean.class) || cls == Boolean.TYPE ) { // 仮
 //            return number.longValue() != 0;
@@ -139,7 +138,7 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
      * @return 
      */
     @Override
-    public Object stringFormat(String value) {
+    public T stringFormat(String value) {
         if (value == null) {
             return nullFormat();
         }
@@ -149,26 +148,26 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
 //            val = value.toString();
 //        }
         if (type == StringBuilder.class ) {
-            return new StringBuilder(value);
+            return (T)new StringBuilder(value);
         } else if (type == StringBuffer.class ) {
-            return new StringBuffer(value);
+            return (T)new StringBuffer(value);
         } else {
             val = (String)value;
         }
         if ( type instanceof Class ) {
             if ( type == ocls || type == CharSequence.class ) {
-                return value;
+                return (T)value;
             }
             if ( type == String.class ) {
-                return val;
+                return (T)val;
             }
             Class cls = (Class)type;
             if ( cls.isArray() ) {
                 if ( cls.getComponentType() == Character.TYPE ) {
-                    return val.toCharArray();
+                    return (T)val.toCharArray();
                 } else if ( cls.getComponentType() == Byte.TYPE ) {
                     BASE64 b64 = new BASE64(BASE64.URL,0);
-                    return b64.decode(val);
+                    return (T)b64.decode(val);
                 }
                 throw new UnsupportedOperationException("謎の配列");
             }
@@ -176,7 +175,7 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
 //                return new JSONString(val);
 //            }
             if ( type == UUID.class ) {
-                return UUID.fromString(val);
+                return (T)UUID.fromString(val);
             }
 //            if ( type == Date.class ) {
 //                return new JSONDateM().replace(new JSON2String(val), null);
@@ -184,14 +183,14 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
             // 任意の型になるかもしれない注意
             try {
                 Constructor c = ((Class)type).getConstructor(value.getClass());
-                return c.newInstance(value);
+                return (T)c.newInstance(value);
             } catch (NoSuchMethodException | SecurityException | InstantiationException
                     | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                 throw new UnsupportedOperationException(ex);
 //                Logger.getLogger(OMAPConvert.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return value;
+        return (T)value;
     }
 
     /**
@@ -200,11 +199,11 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
      * @return 
      */
     @Override
-    public Object mapFormat(Map map) {
+    public T mapFormat(Map map) {
         if (type instanceof Class) {
-            return mapClassCast(map, (Class)type);
+            return (T)mapClassCast(map, (Class)type);
         } else if ( type instanceof ParameterizedType ) {
-            return mapParameterizedCast(map, (ParameterizedType)type);
+            return (T)mapParameterizedCast(map, (ParameterizedType)type);
         }
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -314,31 +313,31 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
      * @return 
      */
     @Override
-    public Object collectionFormat(Collection list) {
+    public T collectionFormat(Collection list) {
         if (type instanceof Class) {
-            return listClassCast(list, (Class)type);
+            return (T)listClassCast(list, (Class)type);
         } else if ( type instanceof ParameterizedType ) { // List<Generic>
             ParameterizedType pt = (ParameterizedType) type;
             Type raw = pt.getRawType();
             Collection col = typeToList((Class)raw);
             if ( col != null ) {
-                return listCollectionTypeMap(list, pt, col);
+                return (T)listCollectionTypeMap(list, pt, col);
             }
 
         } else if ( type instanceof GenericArrayType ) { // XXX<String>[]
             GenericArrayType gat = (GenericArrayType)type;
             Type component = gat.getGenericComponentType();
-            return listToArray(list, component);
+            return (T)listToArray(list, component);
         }
         
         throw new UnsupportedOperationException("未サポートな型:" + type.getTypeName());
     }
 
     @Override
-    public Object arrayFormat(Object array) {
+    public T arrayFormat(Object array) {
         if ( type instanceof Class ) {
             if ( array.getClass() == type ) {
-                return array;
+                return (T)array;
             }
         }
         throw new UnsupportedOperationException("Not supported yet." + array.getClass().getName() + " target:" + type.getTypeName());
@@ -347,30 +346,30 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
     /**
      * なんとなく変換する.
      * @param <I>
-     * @param <T> 出力形
+     * @param <L> 出力形
      * @param src
      * @param cls 出力class
      * @return 
      */
-    public static <I,T> T listClassCast(Collection<I> src, Class<T> cls) {
+    public static <I,L> L listClassCast(Collection<I> src, Class<L> cls) {
         if (cls == String.class || cls == CharSequence.class) {
-            return (T) src.toString();
+            return (L) src.toString();
         } else if (cls.isAssignableFrom(src.getClass())) {
-            return (T) src; // ToDo: 複製?
+            return (L) src; // ToDo: 複製?
 //        } else if (!cls.isAssignableFrom(List.class) && cls.isAssignableFrom(JsonArray.class)) { // List を除く
 //            if ( src.isEmpty() ) {
 //                return (T)JsonValue.EMPTY_JSON_ARRAY;
 //            }
 //            return (T) src.stream().collect(JSONPArray.collector());
         } else if (cls.isArray()) { // 配列 要素の型も指定可能, Memberの型ではParameterizedTypeに振り分けられそう?
-            return (T) listToArray(src, cls.getComponentType());
+            return (L) listToArray(src, cls.getComponentType());
         }
         
         // Collection 要素の型は?
         Collection col = typeToList(cls);
         if ( col != null ) {
             src.forEach(col::add);
-            return (T)col;
+            return (L)col;
         }
         List list;
         if ( src instanceof List ) {
@@ -378,7 +377,7 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
         } else {
             list = new ArrayList(src);
         }
-        return (T) listLcCast(list, cls);
+        return (L) listLcCast(list, cls);
     }
 
     /**
@@ -500,15 +499,15 @@ public class JavaTypeFormat implements TypeFormat, TypeBind {
     }
 
     @Override
-    public Object datetimeFormat(Calendar datetime) {
+    public T datetimeFormat(Calendar datetime) {
         if ( type instanceof Class ) {
             Class cls = (Class) type;
             if ( cls.isAssignableFrom( Calendar.class )) {
-                return datetime;
+                return (T)datetime;
             } else if ( cls == java.util.Date.class) {
-                return new java.util.Date(datetime.getTimeInMillis());
+                return (T)new java.util.Date(datetime.getTimeInMillis());
             } else if ( cls == java.sql.Timestamp.class ) {
-                return new java.sql.Timestamp(datetime.getTimeInMillis());
+                return (T)new java.sql.Timestamp(datetime.getTimeInMillis());
             }
             
         }
