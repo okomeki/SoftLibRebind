@@ -19,12 +19,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.siisise.bind.Rebind;
 import net.siisise.bind.TypeUnbind;
 import net.siisise.bind.format.TypeFormat;
 import net.siisise.bind.format.BindObject;
@@ -101,9 +99,14 @@ public class UnbindObject implements TypeUnbind {
         }
         return def;
     }
-    
-    Map<String, Object> objectToMap(Object src) {
-        Map<String, Object> objmap;
+
+    /**
+     * object を mapっぽくする
+     * @param src
+     * @return 
+     */
+    private LinkedHashMap<String, Object> objectToMap(Object src) {
+        LinkedHashMap<String, Object> objmap;
         switch (type) {
             case FIELD:
                 objmap = fieldsToMap(src);
@@ -120,10 +123,16 @@ public class UnbindObject implements TypeUnbind {
         }
         return objmap;
     }
-    
-    public static Map<String, Object> fieldsToMap(Object obj) {
+
+    /**
+     * objのFIELDをLinkedHashMapに収める.
+     * 並び順は保持する
+     * @param obj
+     * @return fieldを抽出したもの
+     */
+    public static LinkedHashMap<String, Object> fieldsToMap(Object obj) {
         Class<? extends Object> cls = obj.getClass();
-        HashMap objmap = new LinkedHashMap();
+        LinkedHashMap objmap = new LinkedHashMap();
 
         Field[] fields = cls.getFields();
 
@@ -138,9 +147,14 @@ public class UnbindObject implements TypeUnbind {
         return objmap;
     }
 
-    public static Map<String, Object> declaredFieldsToMap(Object obj) {
+    /**
+     * 親クラス含むFIELDをLinkedHashMapに収める
+     * @param obj いろいろobject
+     * @return LinkedHashMap
+     */
+    public static LinkedHashMap<String, Object> declaredFieldsToMap(Object obj) {
         Class<? extends Object> cls = obj.getClass();
-        HashMap objmap = new LinkedHashMap();
+        LinkedHashMap objmap = new LinkedHashMap();
 
         while (cls != null) {
             Field[] fields = cls.getDeclaredFields();
@@ -160,9 +174,9 @@ public class UnbindObject implements TypeUnbind {
         return objmap;
     }
 
-    public static Map<String, Object> beanMap(Object obj) {
+    public static LinkedHashMap<String, Object> beanMap(Object obj) {
         Class<? extends Object> cls = obj.getClass();
-        HashMap objmap = new LinkedHashMap();
+        LinkedHashMap objmap = new LinkedHashMap();
 
         while (cls != null) {
             Method[] methods = cls.getMethods();

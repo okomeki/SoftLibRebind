@@ -57,7 +57,8 @@ public interface BindCollection<T> {
 
     /**
      * Set / List は Collection としてまとめても分けてもいい.
-     * @param col
+     * 
+     * @param col ListでもSetでもないことがある.
      * @return 
      */
     T collectionFormat(Collection col);
