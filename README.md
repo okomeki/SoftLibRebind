@@ -60,11 +60,12 @@ SoftLibJSONなどから依存関係になっているので使いたい機能を
 <dependency>
   <groupId>net.siisise<groupId>
   <artifactId>softlib-rebind</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <type>jar</type>
 </dependency>
 ```
-まだSNAPSHOTです。
+とりあえず変更もなくなってきたので 0.0.1版。
+次版 0.0.2-SNAPSHOT ぐらい。
 
 ## 予定
 
