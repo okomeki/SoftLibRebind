@@ -24,6 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import net.siisise.io.BASE64;
+import net.siisise.io.BitPacket;
 
 /**
  * よくある基本型をまとめたもの.
@@ -79,6 +80,19 @@ public interface TypeFormat<T> extends BindNull<T>, BindBoolean<T>, BindNumber<T
     default T byteArrayFormat(byte[] bytes) {
         BASE64 b64 = new BASE64(BASE64.URL, 0);
         return stringFormat(b64.encode(bytes));
+    }
+
+    /**
+     * ビット列の処理(仮)
+     * @param bites
+     * @return 
+     */
+    default T bitArrayFormat(BitPacket bites) {
+        int len = (int)(bites.bitLength() % 8);
+        if ( len != 0) {
+            bites.writeBit(0, 8 - len);
+        }
+        return byteArrayFormat(bites.toByteArray());
     }
 
     /**
