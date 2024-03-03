@@ -27,16 +27,30 @@ import java.util.Map;
  */
 public class JavaFormat implements TypeFormat<Object> {
 
+    /**
+     * Map型.
+     * @param map
+     * @return Map型でそのまま 
+     */
     @Override
     public Object mapFormat(Map map) {
         return map;
     }
 
+    /**
+     * NULL型.
+     * @return NULL 
+     */
     @Override
     public Object nullFormat() {
         return null;
     }
 
+    /**
+     * boolean型
+     * @param bool
+     * @return boolean値
+     */
     @Override
     public Object booleanFormat(boolean bool) {
         return bool;

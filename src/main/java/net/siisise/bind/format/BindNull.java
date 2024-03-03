@@ -22,5 +22,9 @@ package net.siisise.bind.format;
  */
 public interface BindNull<T> {
     
+    /**
+     * NULL をどうにかする.
+     * @return 
+     */
     T nullFormat();
 }

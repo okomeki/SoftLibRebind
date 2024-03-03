@@ -43,7 +43,12 @@ public class Rebind {
     public Rebind() {
         this( loadUnbindLists(), loadTypeFormats());
     }
-    
+
+    /**
+     * 
+     * @param srcUnbindList
+     * @param bindList 
+     */
     public Rebind(List<TypeUnbind> srcUnbindList, List<TypeFormat> bindList) {
         this.unbindList = new ArrayList<>();
         unbindList.addAll(srcUnbindList);
@@ -106,7 +111,10 @@ public class Rebind {
     }
 */
     
-    
+    /**
+     * サービスとして登録された TypeFormat の一覧を取得する.
+     * @return 使える TypeFormat 一覧.
+     */
     static List<TypeFormat> loadTypeFormats() {
         ServiceLoader<TypeFormat> formatLoader = ServiceLoader.load(TypeFormat.class);
         List<TypeFormat> formats = new ArrayList<>();

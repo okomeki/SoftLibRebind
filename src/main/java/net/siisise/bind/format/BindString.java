@@ -18,8 +18,16 @@ package net.siisise.bind.format;
 /**
  * 文字列対応.
  * String と CharSequence どっちがよかったか。
+ *
  * @param <T> 出力型
  */
 public interface BindString<T> {
+
+    /**
+     * 一般的な文字列をなんとかする.
+     *
+     * @param str
+     * @return
+     */
     T stringFormat(String str);
 }
