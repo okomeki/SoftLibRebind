@@ -119,6 +119,18 @@
             <id>ossrh</id>
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>github</id>
+            <name>GitHub okomeki Apache Maven SoftLib Packages</name>
+            <layout>default</layout>
+            <url>https://maven.pkg.github.com/okomeki/softlib</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
