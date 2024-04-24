@@ -56,16 +56,27 @@ JSONのオブジェクトと書式も分離したい。
 
 pom.xml のdependency は次のような感じで追加します。
 SoftLibJSONなどから依存関係になっているので使いたい機能を個別に含めればSoftLibRebindも含まれます。
+
+Java Module System JDK11以降用
+```
+<dependency>
+  <groupId>net.siisise<groupId>
+  <artifactId>softlib-rebind.module</artifactId>
+  <version>0.0.3</version>
+  <type>jar</type>
+</dependency>
+```
+JDK 1.8用
 ```
 <dependency>
   <groupId>net.siisise<groupId>
   <artifactId>softlib-rebind</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <type>jar</type>
 </dependency>
 ```
-とりあえず変更もなくなってきたので 0.0.2版。
-次版 0.0.3-SNAPSHOT ぐらい。
+undefined を追加した 0.0.3版。
+次版 0.0.4-SNAPSHOT ぐらい。
 
 ## 予定
 
