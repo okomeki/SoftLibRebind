@@ -16,10 +16,10 @@
 package net.siisise.bind;
 
 /**
- *
+ * 分解するもの一覧を取得するための何か.
  */
 public interface UnbindList {
-    
+
     TypeUnbind[] getList();
-    
+
 }

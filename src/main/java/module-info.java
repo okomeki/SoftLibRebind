@@ -20,5 +20,11 @@ module net.siisise.rebind {
     requires net.siisise;
     exports net.siisise.bind;
     exports net.siisise.bind.format;
-//    requires softlib.rebind.java11;
+    exports net.siisise.bind.unbind;
+    exports net.siisise.bind.unbind.java;
+    uses net.siisise.bind.UnbindList;
+    uses net.siisise.bind.format.TypeFormat;
+    uses net.siisise.bind.TypeUnbind;
+    provides net.siisise.bind.UnbindList with net.siisise.bind.unbind.JavaUnbind;
+    provides net.siisise.bind.format.TypeFormat with net.siisise.bind.format.JavaFormat;
 }
