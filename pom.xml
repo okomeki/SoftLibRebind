@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.siisise</groupId>
-    <artifactId>softlib-rebind.module</artifactId>
+    <artifactId>softlib-rebind</artifactId>
     <name>SoftLibRebind</name>
     <version>0.0.4</version>
     <packaging>jar</packaging>
@@ -91,7 +91,7 @@
     <dependencies>
         <dependency>
             <groupId>net.siisise</groupId>
-            <artifactId>softlib.module</artifactId>
+            <artifactId>softlib</artifactId>
             <version>[1.1.14,)</version>
             <type>jar</type>
         </dependency>
@@ -134,7 +134,7 @@
     </distributionManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 </project>
