@@ -96,15 +96,6 @@ public interface TypeFormat<T> extends BindUndefined<T>, BindBoolean<T>, BindNum
     }
 
     /**
-     * 文字列として処理する.
-     * @param chars
-     * @return 形成済み 
-     */
-    default T charArrayFormat(char[] chars) {
-        return stringFormat(String.valueOf(chars));
-    }
-
-    /**
      * 日時変換 Date型、Calendar型
      * 指定のない場合はRFC 3339 形式で文字列に. (TimeZone Zの場合のみ)
      * 

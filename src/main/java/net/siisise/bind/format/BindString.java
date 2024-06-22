@@ -30,4 +30,24 @@ public interface BindString<T> {
      * @return
      */
     T stringFormat(String str);
+
+    /**
+     * 文字列として処理する.
+     *
+     * @param chars
+     * @return 形成済み
+     */
+    default T charArrayFormat(char[] chars) {
+        return stringFormat(String.valueOf(chars));
+    }
+
+    /**
+     * 多様な文字列型を処理したい場合の抜け道.
+     *
+     * @param seq
+     * @return
+     */
+    default T stringFormat(CharSequence seq) {
+        return stringFormat(seq.toString());
+    }
 }

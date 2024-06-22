@@ -4,7 +4,7 @@
     <groupId>net.siisise</groupId>
     <artifactId>softlib-rebind.module</artifactId>
     <name>SoftLibRebind</name>
-    <version>0.0.4</version>
+    <version>0.0.5-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>Java, JSON, CBOR, YAML, etc bind tool</description>
     <url>https://github.com/okomeki/SoftLibRebind</url>
