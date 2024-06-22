@@ -17,10 +17,17 @@ package net.siisise.bind.format;
 
 /**
  * フラグっぽいものの集約.
+ *
  * @param <T> 出力型
  */
 public interface BindBoolean<T> {
-    
+
+    /**
+     * フラグ型.
+     *
+     * @param bool
+     * @return
+     */
     T booleanFormat(boolean bool);
-    
+
 }

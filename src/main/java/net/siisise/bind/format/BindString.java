@@ -17,8 +17,10 @@ package net.siisise.bind.format;
 
 /**
  * 文字列対応.
- * String と CharSequence どっちがよかったか。
- *
+ * 基本的にString で処理することにする。
+ * char配列、int配列に対応する? とりあえず型変換でなんとかなるものはあとまわし。
+ * ASN.1のように複数型がある場合はCharSequenceの拡張として処理できる道も作ってみる。
+ * 
  * @param <T> 出力型
  */
 public interface BindString<T> {
@@ -30,4 +32,24 @@ public interface BindString<T> {
      * @return
      */
     T stringFormat(String str);
+
+    /**
+     * 文字列として処理する.
+     *
+     * @param chars
+     * @return 形成済み
+     */
+    default T charArrayFormat(char[] chars) {
+        return stringFormat(String.valueOf(chars));
+    }
+
+    /**
+     * 多様な文字列型を処理したい場合の抜け道.
+     *
+     * @param seq
+     * @return
+     */
+    default T stringFormat(CharSequence seq) {
+        return stringFormat(seq.toString());
+    }
 }

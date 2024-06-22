@@ -17,12 +17,13 @@ package net.siisise.bind.format;
 
 /**
  * YAML, CBOR などで使える
+ * NULLと分けておく.
  * @param <T> 出力形
  */
 public interface BindUndefined<T> extends BindNull<T> {
     /**
      * undefined型があるときの対応.
-     * @return 該当する情報, ないときはNULL的なものかも
+     * @return 該当する情報, ないときはNULL的なものとする
      */
     default T undefinedFormat() {
         return nullFormat();

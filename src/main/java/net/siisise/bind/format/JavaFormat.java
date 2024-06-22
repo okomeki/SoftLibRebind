@@ -66,11 +66,17 @@ public class JavaFormat implements TypeFormat<Object> {
         return num;
     }
 
+    /**
+     * 文字列の処理.
+     * 特殊型を扱う場合はCharSequence も使える.
+     * @param str
+     * @return 
+     */
     @Override
     public Object stringFormat(String str) {
         return str;
     }
-
+    
     @Override
     public Object collectionFormat(Collection col) {
         return col;

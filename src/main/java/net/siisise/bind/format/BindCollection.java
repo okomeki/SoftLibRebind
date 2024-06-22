@@ -29,7 +29,7 @@ public interface BindCollection<T> {
     // List / Array / Object / Map は個別に定義する?
 
     /**
-     * 
+     * Map対応.
      * @param map 中身は初期状態かも
      * @return 
      */

@@ -16,17 +16,20 @@
 package net.siisise.bind.format;
 
 /**
- * 配列全般.
+ * 配列全般. 
  * primitive 型と Object系な型の2種類
  * 主にbyte列, char列を扱いたいときに
  * その他はListなどとして扱う場合が多い
+ *
  * @param <T> 出力型
  */
 public interface BindArray<T> {
+
     /**
      * 配列を出力する
+     *
      * @param array 配列
-     * @return 
+     * @return
      */
     T arrayFormat(Object array);
 }
