@@ -50,7 +50,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.6.3</version>
+                <version>3.7.0</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -60,6 +60,18 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>net.siisise.bind.Rebind</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -78,7 +90,7 @@
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.13</version>
+                <version>1.7.0</version>
                 <extensions>true</extensions>
                 <configuration>
                     <serverId>ossrh</serverId>
@@ -98,19 +110,19 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>5.10.2</version>
+            <version>[5.10.2,)</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>5.10.2</version>
+            <version>[5.10.2,)</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.10.2</version>
+            <version>[5.10.2,)</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
