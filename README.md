@@ -7,14 +7,33 @@ JavaとJSONとその他いろいろの形式を変換するための枠組みで
 ファイル形式とオブジェクト形式の2つあると思うので、それぞれ個別のフォーマットとして扱えます。
 改行が違うとか派生形式も可能かもしれません。
 
+現状各SoftLibで対応していそうなもの
+ - Java Object
+   - Object, List, Map, 基本型など
+ - JSON
+   - text
+   - JSONP Object (Java EE, Jakarta EE, SoftLibJSON)
+ - ASN.1
+   - X.690 DER
+   - X.509 方面
+ - CBOR
+ - YAML
+
+対応予定のもの
+ - YAML, CBOR全部
+ - X.690系の他のもの
+ - SQL (JDBC) Mapping
+など
+
 Javaの該当型への変換は classを指定するだけで簡単です。
 
   JsonValue json = Rebind.valueOf( object, JsonValue.class );
 
-型に対応していれば、object を JsonValue型やList, Map, YAML や CBOR といった形で出力できるようになります。
+JSON, ASN.1 DER, CBORなどの出力型は、TypeFomrat というinterface で作ることができます。
 
-  型class の他に 出力型を指定する TypeFormat という interface にあわせて自由に出力形式を作ることができます。
-  たとえば JSON の改行ありなしなど詳細の設定もできますね。
+型に対応していれば、object を JsonValue型やList, Map, YAML や CBOR といった形で出力できるようになります。JSONの改行あり、なしなどを分けることもできます。
+
+JsonValueなどデータ形式の専用型を使わず Javaの標準Class, List, Mapなどでデータを組み立てて、そのままJSON, ASN.1, CBORなど自由な型で出力が可能です。ASN.1のOBJECTIDENTIFIERなど一部は専用型が必要ですがURIなどに変換する案もあり。
 
 内部形式 Java Collection, Java Object (PoJo? Bean?), JSON Object (Java JSON-P, Jakarta JSON-P, 独自形式)
 出力形式 JSON,YAML,CBOR など

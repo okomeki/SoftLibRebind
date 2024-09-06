@@ -4,7 +4,7 @@
     <groupId>net.siisise</groupId>
     <artifactId>softlib-rebind.module</artifactId>
     <name>SoftLibRebind</name>
-    <version>0.0.5-SNAPSHOT</version>
+    <version>0.0.5</version>
     <packaging>jar</packaging>
     <description>Java, JSON, CBOR, YAML, etc bind tool</description>
     <url>https://github.com/okomeki/SoftLibRebind</url>
@@ -104,25 +104,25 @@
         <dependency>
             <groupId>net.siisise</groupId>
             <artifactId>softlib.module</artifactId>
-            <version>[1.1.14,)</version>
+            <version>[1.1.15,1.2.0)</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <version>[5.10.2,)</version>
+            <version>[5.11.0,)</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-params</artifactId>
-            <version>[5.10.2,)</version>
+            <version>[5.11.0,)</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>[5.10.2,)</version>
+            <version>[5.11.0,)</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
