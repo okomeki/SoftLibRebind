@@ -36,7 +36,7 @@ public class UnbindString implements TypeUnbind {
             return format.stringFormat((String)src);
         }
         if ( src instanceof CharSequence ) {
-            return format.stringFormat(((CharSequence)src).toString());
+            return format.stringFormat((CharSequence)src);
         }
         
         return this;

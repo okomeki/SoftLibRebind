@@ -28,16 +28,16 @@ public interface BindString<T> {
     /**
      * 一般的な文字列をなんとかする.
      *
-     * @param str
-     * @return
+     * @param str 文字列
+     * @return 符号化
      */
     T stringFormat(String str);
 
     /**
      * 文字列として処理する.
      *
-     * @param chars
-     * @return 形成済み
+     * @param chars 文字列
+     * @return 符号化
      */
     default T charArrayFormat(char[] chars) {
         return stringFormat(String.valueOf(chars));
@@ -46,8 +46,8 @@ public interface BindString<T> {
     /**
      * 多様な文字列型を処理したい場合の抜け道.
      *
-     * @param seq
-     * @return
+     * @param seq 文字列
+     * @return 符号化
      */
     default T stringFormat(CharSequence seq) {
         return stringFormat(seq.toString());
