@@ -15,6 +15,8 @@
  */
 package net.siisise.bind.format;
 
+import java.net.URI;
+
 /**
  * 文字列対応.
  * 基本的にString で処理することにする。
@@ -51,5 +53,10 @@ public interface BindString<T> {
      */
     default T stringFormat(CharSequence seq) {
         return stringFormat(seq.toString());
+    }
+
+    
+    default T uriFormat(URI uri) {
+        return stringFormat(uri.toString());
     }
 }
