@@ -32,7 +32,8 @@ import net.siisise.io.BitPacket;
  * テキスト/ファイル出力は ***Format, Object 出力は ***Convert の名にする予定は未定。
  * @param <T> 出力型
  */
-public interface TypeFormat<T> extends BindUndefined<T>, BindBoolean<T>, BindNumber<T>, BindString<T>, BindArray<T>, BindCollection<T> {
+public interface TypeFormat<T> extends BindUndefined<T>, BindBoolean<T>, BindNumber<T>,
+        BindString<T>, BindArray<T>, BindCollection<T>, BindEnum<T>, BindASN1<T> {
 
     /**
      * 対象型で小分けにできるかも
