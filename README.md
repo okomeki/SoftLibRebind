@@ -81,7 +81,7 @@ Java Module System JDK11以降用
 <dependency>
   <groupId>net.siisise<groupId>
   <artifactId>softlib-rebind.module</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7</version>
   <type>jar</type>
 </dependency>
 ```
@@ -95,7 +95,7 @@ JDK 1.8用
 </dependency>
 ```
 CharSequence を分離してみた 0.0.6版。
-次版 0.0.7-SNAPSHOT ぐらい。
+次版 0.0.8-SNAPSHOT ぐらい。
 
 ## 予定
 
