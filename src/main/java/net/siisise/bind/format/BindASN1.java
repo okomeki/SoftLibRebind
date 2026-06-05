@@ -17,6 +17,7 @@ package net.siisise.bind.format;
 
 /**
  * ASN.1 BER/CER/DER用タグ拡張
+ * @param <T>
  */
 public interface BindASN1<T> {
     

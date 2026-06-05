@@ -50,10 +50,10 @@ public class Rebind {
      * @param bindList 
      */
     public Rebind(List<TypeUnbind> srcUnbindList, List<TypeFormat> bindList) {
-        this.unbindList = new ArrayList<>();
+        unbindList = new ArrayList<>();
         unbindList.addAll(srcUnbindList);
         
-        for ( TypeUnbind un : this.unbindList ) {
+        for ( TypeUnbind un : unbindList ) {
             Type[] srcs = un.getSrcTypes();
             for ( Type src : srcs ) {
                 putUnbind(src, un);
@@ -100,17 +100,7 @@ public class Rebind {
         
         return ubs;
     }
-/*
-    static List<TypeUnbind> loadUnbinds() {
-        ServiceLoader<TypeUnbind> unbindLoader = ServiceLoader.load(TypeUnbind.class);
-        List<TypeUnbind> ubs = new ArrayList<>();
-        for ( TypeUnbind unbind : unbindLoader ) {
-            ubs.add(unbind);
-        }
-        return ubs;
-    }
-*/
-    
+
     /**
      * サービスとして登録された TypeFormat の一覧を取得する.
      * @return 使える TypeFormat 一覧.
@@ -119,7 +109,6 @@ public class Rebind {
         ServiceLoader<TypeFormat> formatLoader = ServiceLoader.load(TypeFormat.class);
         List<TypeFormat> formats = new ArrayList<>();
         for ( TypeFormat format : formatLoader ) {
-//            System.out.println("Load TypeFormat : " + format.getClass().getName());
             formats.add(format);
         }
         
@@ -180,12 +169,12 @@ public class Rebind {
     }
 
     /**
-     * 
-     * @param <T>
+     * 特殊返還付き変換.
+     * @param <T> 出力型
      * @param src source data
      * @param format 出力ォーマット
      * @param ublist not null 分解用機能群
-     * @return 
+     * @return 出力
      */
     public <T> T valueOf(Object src, TypeFormat<T> format, List<TypeUnbind> ublist) {
         // Unbind
@@ -336,5 +325,5 @@ public class Rebind {
         TypeFormat<T> format = s_convert(type);
         return (T)uo.valueOf(object, format);
     }
-    
+
 }
